@@ -10,6 +10,7 @@ export default function RootLayout() {
         <Stack.Screen name="index" options={{ animation: "default" }} />
         <Stack.Screen name="choice" options={{ animation: "slide_from_left" }} />
         <Stack.Screen name="kidswelcome" options={{ animation: "slide_from_bottom" }} />
+        <Stack.Screen name="ageselection" options={{ animation: "slide_from_bottom" }} />
       </Stack>
     </SafeAreaView>
   );

@@ -8,10 +8,10 @@ export default function Kidswelcome() {
 
             </View>
 
-            <Text className="text-2xl font-bold text-black w-full text-center mb-6 pb-1">Welcome to Neuro Knights</Text>
+            <Text className="text-2xl mt-4 font-bold text-black w-full text-center mb-6 pb-1">Welcome to Neuro Knights</Text>
              
             <Text>Join the adventure where fun meets learning,explore exciting games,unlock knowledge, and become hero of your own story.</Text>
-            <Link href="/choice" asChild>
+            <Link href="/ageselection" asChild>
                 <TouchableOpacity className="bg-blue-600 p-4 rounded-lg">
                     <Text className="text-lg text-center text-white w-full">Continue</Text>
                 </TouchableOpacity>
