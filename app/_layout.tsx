@@ -9,8 +9,13 @@ export default function RootLayout() {
       <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen name="index" options={{ animation: "default" }} />
         <Stack.Screen name="choice" options={{ animation: "slide_from_left" }} />
-        <Stack.Screen name="kidswelcome" options={{ animation: "slide_from_bottom" }} />
+        <Stack.Screen name="intro1" options={{ animation: "slide_from_bottom" }} />
+         <Stack.Screen name="intro1parents" options={{ animation: "slide_from_bottom" }} />
         <Stack.Screen name="ageselection" options={{ animation: "slide_from_bottom" }} />
+        <Stack.Screen name="intro2pbg" options={{ animation: "slide_from_bottom" }} />
+        <Stack.Screen name="intro3IG" options={{ animation: "slide_from_bottom" }} />
+        <Stack.Screen name="intro4PR" options={{ animation: "slide_from_bottom" }} />
+        <Stack.Screen name="login" options={{ animation: "slide_from_bottom" }} />
       </Stack>
     </SafeAreaView>
   );
