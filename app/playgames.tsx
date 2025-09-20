@@ -18,7 +18,7 @@ import itemimage from "../assets/images/Mask group.png";
 
 
 
-export default function WelcomeToNK() {
+export default function PlayGames() {
 
 const router=useRouter()
 

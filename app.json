@@ -22,27 +22,32 @@
       "predictiveBackGestureEnabled": false
     },
     "web": {
-      "bundler":"metro",
+      "bundler": "metro",
       "output": "static",
       "favicon": "./assets/images/favicon.png"
     },
-"plugins": [
-  [
-    "expo-splash-screen",
-    {
-      "image": "./assets/images/splash-icon.png",
-      "imageWidth": 200,
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff",
-      "dark": {
-        "backgroundColor": "#000000"
-      }
-    }
-  ]
-],
+    "plugins": [
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/images/splash-icon.png",
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "backgroundColor": "#ffffff",
+          "dark": {
+            "backgroundColor": "#000000"
+          }
+        }
+      ]
+    ],
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "extra": {
+      "eas": {
+        "projectId": "e2e3e347-f15a-4ecb-974b-71148b0aed12"
+      }
     }
   }
 }
