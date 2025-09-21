@@ -7,15 +7,16 @@ import { SafeAreaView } from "react-native-safe-area-context";
 export default function Intro1() {
     const router = useRouter();
 
-    const carouselImages = [
-        "../assets/images/thumbnail 2.png",
-        "../assets/images/thumbnail 2.png",
-        "../assets/images/thumbnail 2.png",
-        "../assets/images/thumbnail 2.png",
-    ];
+    // Individual image requirements
+    const image1 = require("../assets/images/info1thumbnail.png");
+    const image2 = require("../assets/images/thumbnail 2.png");
+    const image3 = require("../assets/images/thumbnail 2.png");
+    const image4 = require("../assets/images/thumbnail 2.png");
 
+    // For dots indicator - keep track of total images
+    const totalImages = 4;
 
-    //    Horizontal Carousal
+    //    Horizontal Carousel
     const [carousalCurrentIndex, setCarousalCurrentIndex] = useState(0);
     const carousalViewRef = useRef(null);
     const { width: screenWidth } = Dimensions.get('window');
@@ -26,22 +27,17 @@ export default function Intro1() {
         setCarousalCurrentIndex(index);
     };
 
-
-
-
-
     return (
         <SafeAreaView className="flex-1 w-full bg-white ">
 
             <TouchableOpacity
                 onPress={() => router.back()}
-                className="absolute top-4 left-4 z-10 p-2"
+                className="absolute top-10 left-4 z-10 p-2"
             >
                 <Ionicons name="arrow-back" size={28} color="orange" />
             </TouchableOpacity>
 
-
-            <View className="flex-[0.5]  w-full">
+            <View className="flex-[0.5] w-full">
                 <ScrollView
                     ref={carousalViewRef}
                     horizontal
@@ -50,15 +46,53 @@ export default function Intro1() {
                     onMomentumScrollEnd={handleCarousalScroll}
                     style={{ width: '100%' }}
                 >
-                    {carouselImages.map((uri, index) => (
-                        <View key={index} style={{ width: screenWidth }}>
-                            <Image
-                                source={require("../assets/images/vcthumbnail1.png")}
-                                resizeMode="cover"
-                                style={{ width: screenWidth, height: 460, objectFit: "contain" }}
-                            />
-                        </View>
-                    ))}
+                    {/* First Image */}
+                    <View style={{ width: screenWidth, flex: 1 }}>
+                        <Image
+                            source={image1}
+                            resizeMode="cover"
+                            style={{
+                                width: screenWidth,
+                                flex: 1,
+                            }}
+                        />
+                    </View>
+
+                    {/* Second Image */}
+                    <View style={{ width: screenWidth }}>
+                        <Image
+                            source={image2}
+                            resizeMode="cover"
+                            style={{
+                                width: screenWidth,
+                                flex: 1,
+                            }}
+                        />
+                    </View>
+
+                    {/* Third Image */}
+                    <View style={{ width: screenWidth }}>
+                        <Image
+                            source={image3}
+                           resizeMode="cover"
+                            style={{
+                                width: screenWidth,
+                                flex: 1,
+                            }}
+                        />
+                    </View>
+
+                    {/* Fourth Image */}
+                    <View style={{ width: screenWidth }}>
+                        <Image
+                            source={image4}
+                            resizeMode="cover"
+                            style={{
+                                width: screenWidth,
+                                flex: 1,
+                            }}
+                        />
+                    </View>
                 </ScrollView>
 
                 {/* Dots Indicator */}
@@ -68,18 +102,43 @@ export default function Intro1() {
                     alignItems: 'center',
                     paddingVertical: 10
                 }}>
-                    {carouselImages.map((_, index) => (
-                        <View
-                            key={index}
-                            style={{
-                                width: 8,
-                                height: 8,
-                                borderRadius: 4,
-                                backgroundColor: carousalCurrentIndex === index ? 'black' : '#4A89DC',
-                                marginHorizontal: 4
-                            }}
-                        />
-                    ))}
+                    {/* Manually create dots for each image */}
+                    <View
+                        style={{
+                            width: 8,
+                            height: 8,
+                            borderRadius: 4,
+                            backgroundColor: carousalCurrentIndex === 0 ? 'black' : '#4A89DC',
+                            marginHorizontal: 4
+                        }}
+                    />
+                    <View
+                        style={{
+                            width: 8,
+                            height: 8,
+                            borderRadius: 4,
+                            backgroundColor: carousalCurrentIndex === 1 ? 'black' : '#4A89DC',
+                            marginHorizontal: 4
+                        }}
+                    />
+                    <View
+                        style={{
+                            width: 8,
+                            height: 8,
+                            borderRadius: 4,
+                            backgroundColor: carousalCurrentIndex === 2 ? 'black' : '#4A89DC',
+                            marginHorizontal: 4
+                        }}
+                    />
+                    <View
+                        style={{
+                            width: 8,
+                            height: 8,
+                            borderRadius: 4,
+                            backgroundColor: carousalCurrentIndex === 3 ? 'black' : '#4A89DC',
+                            marginHorizontal: 4
+                        }}
+                    />
                 </View>
             </View>
 
@@ -98,12 +157,11 @@ export default function Intro1() {
                         shadowRadius: 10,
                         elevation: 10
                     }} className="bg-[#4a89dc] w-[70%] p-4 rounded-full">
-                        <Text className="text-xl  font-bold text-center text-white">Continue</Text>
+                        <Text className="text-xl font-bold text-center text-white">Continue</Text>
                     </TouchableOpacity>
                 </Link>
-                <Text className="my-2">Skip</Text>
+                <Link href="/welcometonk"  className="mt-5">  <Text className="my-2 w-full text-center ">Skip</Text></Link>
             </View>
-
 
         </SafeAreaView>
     );

@@ -1,10 +1,11 @@
 import { Ionicons } from "@expo/vector-icons";
-import React, { useRef, useState } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
+import { Link, useRouter } from "expo-router";
+import React, { useRef, useState } from 'react';
 
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { useRouter } from "expo-router";
+
 import { Dimensions, Image, ImageBackground, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 
 
@@ -215,27 +216,31 @@ export default function VoiceChat1() {
                 </Text>
 
                 {/* Voice Chat Button */}
-                <LinearGradient
-                    colors={['#14b8a6', '#0e7490']}
-                    start={{ x: 0, y: 1 }}
-                    style={{
-                        backgroundColor: '#00BCD4',
-                        borderRadius: 25,
-                        paddingVertical: 12,
-                        flexDirection: 'row',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-
-                    }}>
-                    <Ionicons name="mic" size={16} color="white" style={{ marginRight: 8 }} />
-                    <Text style={{
-                        color: 'white',
-                        fontSize: 14,
-                        fontWeight: 'bold'
-                    }}>
-                        Voice Chat
-                    </Text>
-                </LinearGradient>
+                <Link href={"/voicechat2"} asChild>
+                    <TouchableOpacity >
+                        <LinearGradient
+                            colors={['#14b8a6', '#0e7490']}
+                            start={{ x: 0, y: 1 }}
+                            style={{
+                                backgroundColor: '#00BCD4',
+                                borderRadius: 25,
+                                paddingVertical: 12,
+                                flexDirection: 'row',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                width: '100%',
+                            }}>
+                            <Ionicons name="mic" size={16} color="white" style={{ marginRight: 8 }} />
+                            <Text style={{
+                                color: 'white',
+                                fontSize: 14,
+                                fontWeight: 'bold'
+                            }}>
+                                Voice Chat
+                            </Text>
+                        </LinearGradient>
+                    </TouchableOpacity>
+                </Link>
 
 
             </View>
@@ -246,7 +251,7 @@ export default function VoiceChat1() {
         <SafeAreaView className="flex-1 bg-white">
             {/* Header */}
             <View className="flex-row items-center z-10 justify-between px-4 py-2 bg-white rounded-b-xl">
-                <TouchableOpacity onPress={() => router.back()} >
+                <TouchableOpacity onPress={() => router.push('/welcometonk')} >
                     <Ionicons name="chevron-back-circle" size={28} color="orange" />
                 </TouchableOpacity>
                 <Text className="text-[#4a89dc] text-center text-2xl font-bold">Immuno Guardians
@@ -309,7 +314,7 @@ export default function VoiceChat1() {
                     flex: 1,
                     backgroundColor: 'white',
                     paddingVertical: 20,
-                    marginBottom:50
+                    marginBottom: 50
                 }}>
                     {/* Navigation Arrows and ScrollView Container */}
                     <View style={{

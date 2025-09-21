@@ -1,12 +1,9 @@
 import { Ionicons } from "@expo/vector-icons";
-import React from "react";
-import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { useRouter } from "expo-router";
+import { useRef, useState } from "react";
+import { Dimensions, FlatList, Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-
-import { Dimensions } from 'react-native';
-
-import { Link } from "expo-router";
-
+import { LinearGradient } from 'expo-linear-gradient'; // You'll need this for gradients
 
 import itemimage1 from "../assets/images/Mask group-1.png";
 import itemimage2 from "../assets/images/Mask group-2.png";
@@ -15,167 +12,316 @@ import itemimage4 from "../assets/images/Mask group-4.png";
 import itemimage5 from "../assets/images/Mask group-5.png";
 import itemimage from "../assets/images/Mask group.png";
 
-const carouselImages = [
-    "../assets/images/imgi_2_image 1.png",
-    "../assets/images/imgi_2_image 1.png",
-    "../assets/images/imgi_2_image 1.png",
-];
-
-const listItems = [
-    {
-        id: "1",
-        title: "Brain Games",
-        titlecolor: "#9B66C1",
-        image: itemimage1,
-        buttonStyle: "bg-gradient-to-r from-fuchsia-600 to-pink-600",
-        buttontext: "Play Now",
-        link: "/playgames"
-
-    },
-    {
-        id: "2",
-        title: "Immune Guardians",
-        titlecolor: "#37ACB0",
-        image: itemimage2,
-        buttonStyle: "bg-gradient-to-r from-teal-200 to-teal-500",
-        buttontext: "Voice Chat",
-        link: ""
-    },
-    {
-        id: "3",
-        title: "Take Selfie",
-        titlecolor: "#FF6C6A",
-        image: itemimage3,
-        buttonStyle: "bg-gradient-to-r from-amber-500 to-pink-500",
-        link: ""
-
-    },
-    {
-        id: "4",
-        title: "Human Body",
-        titlecolor: "#FFC73D",
-        image: itemimage4,
-        buttonStyle: "bg-gradient-to-r from-amber-300 to-orange-500",
-        buttontext: "let's Learn",
-        link: ""
-    },
-    {
-        id: "5",
-        title: "Smart Challenge",
-        titlecolor: "#4A89DC",
-        image: itemimage5,
-        buttonStyle: "bg-gradient-to-r from-blue-500 to-fuchsia-600",
-        buttontext: "let's Do it",
-        link: ""
-    },
-    {
-        id: "6",
-        title: "Knight Code Quest",
-        titlecolor: "#4A89DC",
-        image: itemimage,
-        buttonStyle: "bg-gradient-to-r from-pink-600 to-amber-400",
-        buttontext: "let's Learn",
-        link: ""
-    },
-];
-
 export default function WelcomeToNK() {
+    // Individual image requirements
+    const image1 = require("../assets/images/info1thumbnail.png");
+    const image2 = require("../assets/images/thumbnail 2.png");
+    const image3 = require("../assets/images/thumbnail 2.png");
+    const image4 = require("../assets/images/thumbnail 2.png");
+
+    const listItems = [
+        {
+            id: "1",
+            title: "Brain \n Games",
+            titlecolor: "#9B66C1",
+            image: itemimage1,
+            gradientColors: ['#c026d3', '#ec4899'], // fuchsia-600 to pink-600
+            buttontext: "Play Now",
+            link: "/playgames"
+        },
+        {
+            id: "2",
+            title: "Immune Guardians",
+            titlecolor: "#37ACB0",
+            image: itemimage2,
+            gradientColors: ['#5eead4', '#14b8a6'], // teal-200 to teal-500
+            buttontext: "Voice Chat",
+            link: "/voicechat1"
+        },
+        {
+            id: "3",
+            title: "Take Selfie",
+            titlecolor: "#FF6C6A",
+            image: itemimage3,
+            gradientColors: ['#f59e0b', '#ec4899'], // amber-500 to pink-500
+            buttontext: "Take Photo",
+            link: "/camerachoose"
+        },
+        {
+            id: "4",
+            title: "Human Body",
+            titlecolor: "#FFC73D",
+            image: itemimage4,
+            gradientColors: ['#fcd34d', '#f97316'], // amber-300 to orange-500
+            buttontext: "let's Learn",
+            link: "/humanbody"
+        },
+        {
+            id: "5",
+            title: "Smart \n Challenge",
+            titlecolor: "#4A89DC",
+            image: itemimage5,
+            gradientColors: ['#3b82f6', '#c026d3'], // blue-500 to fuchsia-600
+            buttontext: "let's Do it",
+            link: "/humanbody"
+        },
+        {
+            id: "6",
+            title: "Knight Code Quest",
+            titlecolor: "#4A89DC",
+            image: itemimage,
+            gradientColors: ['#ec4899', '#fbbf24'], // pink-600 to amber-400
+            buttontext: "let's Learn",
+            link: "/codequest"
+        },
+    ];
+
     // Get the screen width
-    const screenWidth = Dimensions.get('window').width;
+    const { width: screenWidth } = Dimensions.get('window');
+
+    // Horizontal Carousel state
+    const [carousalCurrentIndex, setCarousalCurrentIndex] = useState(0);
+    const carousalViewRef = useRef(null);
+
+    const handleCarousalScroll = (event) => {
+        const scrollPosition = event.nativeEvent.contentOffset.x;
+        const index = Math.round(scrollPosition / screenWidth);
+        setCarousalCurrentIndex(index);
+    };
+
+    const router = useRouter();
+
     return (
-        <SafeAreaView className="flex-1 bg-white">
+        <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
             {/* Header */}
-            <View className="flex-row items-center z-10 justify-between px-4 py-2 bg-[#4a89dc] rounded-b-xl">
-                <TouchableOpacity>
+            <View style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                zIndex: 10,
+                justifyContent: 'space-between',
+                paddingHorizontal: 16,
+                paddingVertical: 8,
+                backgroundColor: '#4a89dc',
+                borderBottomLeftRadius: 16,
+                borderBottomRightRadius: 16
+            }}>
+                <TouchableOpacity onPress={() => router.back()}>
                     <Ionicons name="chevron-back-circle" size={28} color="orange" />
                 </TouchableOpacity>
-                <Text className="text-white text-center text-2xl font-bold">Welcome To{"\n"}
-                    <Text className="text-orange-300 text-center text-2xl font-bold">NeuroKnights</Text>
+                <Text style={{
+                    color: 'white',
+                    textAlign: 'center',
+                    fontSize: 24,
+                    fontWeight: 'bold'
+                }}>
+                    Welcome To{"\n"}
+                    <Text style={{ color: '#fed7aa' }}>NeuroKnights</Text>
                 </Text>
-
-                <View className="w-6" />
+                <View style={{ width: 24 }} />
             </View>
 
             {/* Main Content */}
-            <ScrollView className="flex-1 -mt-4 z-0 w-full pb-20">
+            <ScrollView style={{
+                flex: 1,
+                marginTop: -16,
+                zIndex: 0,
+                width: '100%'
+            }} contentContainerStyle={{ paddingBottom: 100 }}>
+                
                 {/* Horizontal Carousel */}
+                <View style={{
+                    backgroundColor: '#4a89dc',
+                    padding: 16,
+                    width: '100%',
+                    borderBottomLeftRadius: 16,
+                    borderBottomRightRadius: 16
+                }}>
+                    <View style={{ height: 250, width: '100%' }}>
+                        <ScrollView
+                            ref={carousalViewRef}
+                            horizontal
+                            showsHorizontalScrollIndicator={false}
+                            pagingEnabled
+                            onMomentumScrollEnd={handleCarousalScroll}
+                            style={{ width: '100%', height: '100%' }}
+                        >
+                            {/* Carousel Images */}
+                            {[image1, image2, image3, image4].map((image, index) => (
+                                <View key={index} style={{ width: screenWidth - 32, height: 200, marginRight: 8 }}>
+                                    <Image
+                                        source={image}
+                                        resizeMode="cover"
+                                        style={{
+                                            width: '100%',
+                                            height: '100%',
+                                            borderRadius: 12,
+                                        }}
+                                    />
+                                </View>
+                            ))}
+                        </ScrollView>
 
-                <View className="bg-[#4a89dc] p-4 w-full rounded-b-xl">
-                    <ScrollView
-                        horizontal
-                        showsHorizontalScrollIndicator={false}
-                        contentContainerStyle={{ paddingHorizontal: 0 }} // Optional: Adjust padding for content
-                        className="w-full"
-                    >
-                        {carouselImages.map((uri, index) => (
-                            <View key={index} className="w-72 mr-4">
-                                <Image
-                                    source={require("../assets/images/imgi_2_image 1.png")}
-                                    className="rounded-[22px]"
-                                    resizeMode="cover"
-                                    style={{ width: screenWidth * 0.92, height: 210 }}
+                        {/* Dots Indicator */}
+                        <View style={{
+                            flexDirection: 'row',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            paddingVertical: 10
+                        }}>
+                            {[0, 1, 2, 3].map((index) => (
+                                <View
+                                    key={index}
+                                    style={{
+                                        width: 8,
+                                        height: 8,
+                                        borderRadius: 4,
+                                        backgroundColor: carousalCurrentIndex === index ? '#F2BC5D' : 'white',
+                                        marginHorizontal: 4
+                                    }}
                                 />
-                            </View>
-                        ))}
-                    </ScrollView>
+                            ))}
+                        </View>
+                    </View>
                 </View>
 
-                <Text className="text-2xl ml-4 my-3 font-bold text-[#4A89dc]">Explore Our Features</Text>
+                <Text style={{
+                    fontSize: 24,
+                    marginLeft: 16,
+                    marginVertical: 12,
+                    fontWeight: 'bold',
+                    color: '#4A89dc'
+                }}>
+                    Explore Our Features
+                </Text>
+
                 {/* Vertical List */}
-                <View className="bg-white px-4">
-                    <View className="grid grid-cols-2 w-full gap-x-2 bg-white">
-                        {listItems.map((item) => (
-                            <View key={item.id} className="flex-col items-center  rounded-xl p-3 my-2"
+                <View style={{ backgroundColor: "white", paddingHorizontal: 16 }}>
+                    <FlatList
+                        data={listItems}
+                        numColumns={2}
+                        keyExtractor={(item) => item.id.toString()}
+                        columnWrapperStyle={{ justifyContent: "space-between" }}
+                        renderItem={({ item }) => (
+                            <View
                                 style={{
+                                    flex: 1,
+                                    flexDirection: "column",
+                                    alignItems: "center",
+                                    borderRadius: 12,
+                                    padding: 12,
+                                    marginVertical: 8,
+                                    backgroundColor: "white",
                                     shadowColor: item.titlecolor,
                                     shadowOffset: { width: 0, height: 4 },
                                     shadowOpacity: 0.3,
                                     shadowRadius: 6,
-                                    elevation: 8, // for Android
+                                    elevation: 8,
+                                    marginHorizontal: 4,
                                 }}
-
                             >
-                                <Image source={item.image} className="w-full h-32 rounded-2xl " />
-
-                                <Text className={`text-md text-center py-2 font-bold`} style={{ color: item.titlecolor }} >{item.title}</Text>
-                                <Link className="w-full mx-auto flex justify-center" href={`${item.link}`}>
-                                    <TouchableOpacity className={`flex-row justify-center items-center rounded-lg p-2 w-[85%] ${item.buttonStyle}`}>
-                                        <Ionicons name="game-controller" size={20} color="white" />
-                                        <Text className="ml-3 text-white font-medium">{item.buttontext}</Text>
-                                    </TouchableOpacity>
-                                </Link>
-
-
-
+                                <Image
+                                    source={item.image}
+                                    style={{ width: "100%", height: 128, borderRadius: 16 }}
+                                    resizeMode="cover"
+                                />
+                                <Text
+                                    style={{
+                                        fontSize: 16,
+                                        fontWeight: "bold",
+                                        textAlign: "center",
+                                        paddingVertical: 8,
+                                        color: item.titlecolor,
+                                    }}
+                                >
+                                    {item.title}
+                                </Text>
+                                
+                                {/* Fixed Button with LinearGradient */}
+                                <TouchableOpacity 
+                                    onPress={() => router.push(item.link)}
+                                    style={{ width: "100%" }}
+                                >
+                                    <LinearGradient
+                                        colors={item.gradientColors}
+                                        style={{
+                                            flexDirection: "row",
+                                            justifyContent: "center",
+                                            alignItems: "center",
+                                            borderRadius: 8,
+                                            padding: 12,
+                                            width: "100%",
+                                        }}
+                                    >
+                                        <Ionicons name="game-controller" size={16} color="white" />
+                                        <Text style={{ 
+                                            marginLeft: 8, 
+                                            color: "white", 
+                                            fontWeight: "500",
+                                            fontSize: 14
+                                        }}>
+                                            {item.buttontext || "Play"}
+                                        </Text>
+                                    </LinearGradient>
+                                </TouchableOpacity>
                             </View>
-                        ))}
-                    </View>
+                        )}
+                        scrollEnabled={false}
+                    />
                 </View>
-
             </ScrollView>
 
             {/* Bottom Navigation */}
-            <View className="flex-row justify-around items-center py-3 bg-white rounded-t-2xl absolute bottom-0 w-full shadow-blue-300 shadow-xl h-14">
-
+            <View style={{
+                flexDirection: 'row',
+                justifyContent: 'space-around',
+                alignItems: 'center',
+                paddingVertical: 12,
+                backgroundColor: 'white',
+                borderTopLeftRadius: 16,
+                borderTopRightRadius: 16,
+                position: 'absolute',
+                bottom: 0,
+                width: '100%',
+                shadowColor: '#93c5fd',
+                shadowOffset: { width: 0, height: -2 },
+                shadowOpacity: 0.25,
+                shadowRadius: 8,
+                elevation: 8,
+                height: 56
+            }}>
                 <TouchableOpacity>
                     <Ionicons name="home" size={24} color="#4a89dc" />
                 </TouchableOpacity>
-                <Link href="/collection"><TouchableOpacity>
+
+                <TouchableOpacity onPress={() => router.push("/collection")}>
                     <Ionicons name="cart" size={24} color="#4a89dc" />
                 </TouchableOpacity>
-                </Link>
 
                 {/* Floating Icon */}
-                <View className="relative">
-                    <TouchableOpacity className="w-16 h-16 bg-red-400 rounded-3xl justify-center items-center absolute -top-12 self-center">
+                <View style={{ position: 'relative' }}>
+                    <TouchableOpacity 
+                        onPress={() => router.push("/playgames")} 
+                        style={{
+                            width: 64,
+                            height: 64,
+                            backgroundColor: '#f87171',
+                            borderRadius: 24,
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            position: 'absolute',
+                            top: -48,
+                            alignSelf: 'center'
+                        }}
+                    >
                         <Ionicons name="game-controller" size={36} color="white" />
                     </TouchableOpacity>
                 </View>
 
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => router.push("/meetnk")}>
                     <Ionicons name="chatbubbles" size={24} color="#4a89dc" />
                 </TouchableOpacity>
-                <TouchableOpacity>
+
+                <TouchableOpacity onPress={() => router.push("/logout")}>
                     <Ionicons name="person" size={24} color="#4a89dc" />
                 </TouchableOpacity>
             </View>

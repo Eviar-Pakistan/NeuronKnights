@@ -1,87 +1,190 @@
 import { Ionicons } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
-import { Link, useRouter } from "expo-router";
-import { Image, ImageBackground, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { useRouter } from "expo-router";
+import { Image, ImageBackground, Text, TextInput, TouchableOpacity, View, Dimensions } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-
-
 export default function Credentials() {
-    const router=useRouter()
+    const router = useRouter();
+    const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
+
     return (
-        <SafeAreaView className="flex-1">
+        <SafeAreaView style={{ flex: 1 }}>
             {/* Background Image with Blur */}
             <ImageBackground
-                source={{ uri: "https://picsum.photos/600/1200" }} // replace with your bg
-                className="flex-1"
+                source={require("../assets/images/logobg.png")}
                 resizeMode="cover"
+                style={{ 
+                    flex: 1, 
+                    width: screenWidth, 
+                    height: screenHeight 
+                }}
             >
-                <BlurView intensity={80} tint="dark" className="flex-1 items-center justify-center">
+                <BlurView 
+                    intensity={80} 
+                    tint="dark" 
+                    style={{
+                        flex: 1,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        width: '100%',
+                        height: '100%'
+                    }}
+                >
                     {/* White Card */}
-                    <View className="bg-white rounded-2xl w-[85%] items-center p-6 shadow-xl">
+                    <View style={{
+                        backgroundColor: 'white',
+                        borderRadius: 16,
+                        width: '85%',
+                        alignItems: 'center',
+                        padding: 24,
+                        shadowColor: '#000',
+                        shadowOffset: {
+                            width: 0,
+                            height: 4,
+                        },
+                        shadowOpacity: 0.25,
+                        shadowRadius: 8,
+                        elevation: 8,
+                        position: 'relative'
+                    }}>
 
                         {/* Close button */}
-                        <TouchableOpacity className="absolute top-4 right-4">
+                        <TouchableOpacity 
+                            onPress={() => router.push("/welcometonk")}
+                            style={{
+                                position: 'absolute',
+                                top: 16,
+                                right: 16,
+                                zIndex: 10
+                            }}
+                        >
                             <Ionicons name="close-circle" size={28} color="red" />
                         </TouchableOpacity>
 
-                         {/* back button */}
-                        <TouchableOpacity   onPress={() => router.back()} className="absolute top-4 left-4">
+                        {/* Back button */}
+                        <TouchableOpacity 
+                            onPress={() => router.back()}
+                            style={{
+                                position: 'absolute',
+                                top: 16,
+                                left: 16,
+                                zIndex: 10
+                            }}
+                        >
                             <Ionicons name="arrow-back-outline" size={28} color="#4a89dc" />
                         </TouchableOpacity>
 
-
-
                         {/* Character / Knight Image */}
                         <Image
-                            source={{ uri: "https://i.ibb.co/v4Q6sKk/character.png" }} // replace with your knight
-                            className="w-32 h-32 mb-4"
+                            source={require("../assets/images/bob.png")}
+                            style={{
+                                width: 128,
+                                height: 128,
+                                marginBottom: 16,
+                                marginTop: 20 // Add space for the buttons
+                            }}
                             resizeMode="contain"
                         />
 
-                        {/* Subtitle */}
-                        <Text className="text-2xl font-bold text-[#4a89dc] mb-2 text-center">
+                        {/* Title */}
+                        <Text style={{
+                            fontSize: 24,
+                            fontWeight: 'bold',
+                            color: '#4a89dc',
+                            marginBottom: 8,
+                            textAlign: 'center'
+                        }}>
                             Enter Your Credentials
                         </Text>
 
-
-                        <Text className="text-gray-600 text-center mb-4">
+                        {/* Subtitle */}
+                        <Text style={{
+                            color: '#6b7280',
+                            textAlign: 'center',
+                            marginBottom: 16
+                        }}>
                             Amygdala will help you login safely!
                         </Text>
 
-                        {/* Email Login */}
-                        <View className="w-full items-start">
-                            <Text className="text-gray-600 font-medium mb-2">
+                        {/* Email Section */}
+                        <View style={{ width: '100%', alignItems: 'flex-start' }}>
+                            <Text style={{
+                                color: '#6b7280',
+                                fontWeight: '500',
+                                marginBottom: 8
+                            }}>
                                 Email Address
                             </Text>
                         </View>
 
-                        <TextInput className="flex-row items-center bg-white border border-gray-300 justify-center rounded-lg px-4 py-3 w-full mb-4" placeholder="Enter Email">
+                        <TextInput 
+                            placeholder="Enter Email"
+                            style={{
+                                backgroundColor: 'white',
+                                borderWidth: 1,
+                                borderColor: '#d1d5db',
+                                borderRadius: 8,
+                                paddingHorizontal: 16,
+                                paddingVertical: 12,
+                                width: '100%',
+                                marginBottom: 16,
+                                fontSize: 16
+                            }}
+                        />
 
-                        </TextInput>
-
-                        {/* Password */}
-                        <View className="w-full items-start">
-                            <Text className="text-gray-600 font-medium mb-2">
+                        {/* Password Section */}
+                        <View style={{ width: '100%', alignItems: 'flex-start' }}>
+                            <Text style={{
+                                color: '#6b7280',
+                                fontWeight: '500',
+                                marginBottom: 8
+                            }}>
                                 Password
                             </Text>
                         </View>
 
-                    
-                        <TextInput className="flex-row items-center bg-white border border-gray-300 justify-center rounded-lg px-4 py-3 w-full mb-4" placeholder="Enter Email">
+                        <TextInput 
+                            placeholder="Enter Password"
+                            secureTextEntry={true}
+                            style={{
+                                backgroundColor: 'white',
+                                borderWidth: 1,
+                                borderColor: '#d1d5db',
+                                borderRadius: 8,
+                                paddingHorizontal: 16,
+                                paddingVertical: 12,
+                                width: '100%',
+                                marginBottom: 24,
+                                fontSize: 16
+                            }}
+                        />
 
-                        </TextInput>
-
-                       
-
-                        {/* Email Login */}
-                        <Link href="/welcometonk" className="w-full">
-                         <TouchableOpacity className="flex-row justify-center items-center bg-[#4a89dc] rounded-lg px-4 py-3 w-full">
+                        {/* Login Button */}
+                        <TouchableOpacity 
+                            onPress={() => router.push("/welcometonk")}
+                            style={{
+                                flexDirection: 'row',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                backgroundColor: '#4a89dc',
+                                borderRadius: 8,
+                                paddingHorizontal: 16,
+                                paddingVertical: 12,
+                                width: '100%'
+                            }}
+                        >
                             <Ionicons name="log-in-outline" size={20} color="white" />
-                            <Text className="ml-3 text-white font-medium">Login</Text>
+                            <Text style={{
+                                marginLeft: 12,
+                                color: 'white',
+                                fontWeight: '500',
+                                fontSize: 16
+                            }}>
+                                Login
+                            </Text>
                         </TouchableOpacity>
-                        </Link>
-                       
+
                     </View>
                 </BlurView>
             </ImageBackground>

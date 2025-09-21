@@ -1,59 +1,64 @@
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useRouter } from "expo-router";
+import { useRouter, Link } from "expo-router";
 import React from 'react';
-import { Dimensions, Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { Dimensions, FlatList, Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function MeetNK() {
     const router = useRouter();
     const screenWidth = Dimensions.get('window').width;
-    
+
     const characters = [
         {
+            id: '1',
             name: 'Sir Cortex',
             description: 'Master of Thinking',
-            image: require('../assets/images/sircortexavt.png'), 
+            image: require('../assets/images/sircortexavt.png'),
             gradientColors: ['#87CEEB', '#4A90E2']
         },
         {
+            id: '2',
             name: 'Synapse',
             description: 'Speed of Lightning',
-            image: require('../assets/images/synapseavt.png'), // Replace with your image path
+            image: require('../assets/images/synapseavt.png'),
             gradientColors: ['#FFE066', '#FFA500']
         },
         {
+            id: '3',
             name: 'Glia',
             description: 'Guardian of Memory',
-            image: require('../assets/images/gliaavt.png'), // Replace with your image path
+            image: require('../assets/images/gliaavt.png'),
             gradientColors: ['#90EE90', '#32CD32']
         },
         {
+            id: '4',
             name: 'Amygdala',
             description: 'Guardian of Emotions',
-            image: require('../assets/images/amygdalaavt.png'), // Replace with your image path
+            image: require('../assets/images/amygdalaavt.png'),
             gradientColors: ['#FF6B6B', '#DC143C']
         },
         {
+            id: '5',
             name: 'NeuroShield',
             description: 'The Brain Defender',
-            image: require('../assets/images/neuroshieldavt.png'), // Replace with your image path
+            image: require('../assets/images/neuroshieldavt.png'),
             gradientColors: ['#9370DB', '#6A5ACD']
         },
         {
+            id: '6',
             name: 'Hipp',
             description: 'Master of Memories',
-            image: require('../assets/images/hippavt.png'), // Replace with your image path
+            image: require('../assets/images/hippavt.png'),
             gradientColors: ['#4169E1', '#1E90FF']
         }
     ];
 
-    const renderCharacterCard = (character, index) => (
-        <View key={index} style={{
+    const renderCharacterCard = ({ item: character }) => (
+        <View style={{
             width: (screenWidth - 48) / 2,
             marginBottom: 16,
             marginHorizontal: 8,
-           
         }}>
             <LinearGradient
                 colors={character.gradientColors}
@@ -73,7 +78,7 @@ export default function MeetNK() {
                 }}>
                     {character.name}
                 </Text>
-                
+
                 <Text style={{
                     color: '#FFFFFF',
                     fontSize: 12,
@@ -90,7 +95,7 @@ export default function MeetNK() {
                     alignItems: 'center',
                     marginBottom: 16
                 }}>
-                    <Image 
+                    <Image
                         source={character.image}
                         style={{
                             width: 80,
@@ -100,20 +105,25 @@ export default function MeetNK() {
                     />
                 </View>
 
-                <TouchableOpacity style={{
-                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                    paddingHorizontal: 20,
-                    paddingVertical: 8,
-                    borderRadius: 15
-                }}>
-                    <Text style={{
-                        color: character.gradientColors[1],
-                        fontSize: 12,
-                        fontWeight: 'bold'
+                <Link href={"/detailnk"} asChild>
+
+
+
+                    <TouchableOpacity style={{
+                        backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                        paddingHorizontal: 20,
+                        paddingVertical: 8,
+                        borderRadius: 15
                     }}>
-                        Tap to Meet
-                    </Text>
-                </TouchableOpacity>
+                        <Text style={{
+                            color: character.gradientColors[1],
+                            fontSize: 12,
+                            fontWeight: 'bold'
+                        }}>
+                            Tap to Meet
+                        </Text>
+                    </TouchableOpacity>
+                </Link>
             </LinearGradient>
         </View>
     );
@@ -131,12 +141,11 @@ export default function MeetNK() {
                 backgroundColor: 'white',
                 borderBottomLeftRadius: 12,
                 borderBottomRightRadius: 12,
-              
             }}>
-                <TouchableOpacity onPress={() => router.back()}>
+                
+                <TouchableOpacity onPress={() => router.push('/welcometonk')}>
                     <Ionicons name="chevron-back-circle" size={28} color="orange" />
                 </TouchableOpacity>
-                
                 <Text style={{
                     color: '#4a89dc',
                     textAlign: 'center',
@@ -161,8 +170,7 @@ export default function MeetNK() {
                 <View style={{
                     paddingHorizontal: 20,
                     paddingTop: 30,
-                    paddingBottom:20
-                    
+                    paddingBottom: 20
                 }}>
                     <Text style={{
                         fontSize: 16,
@@ -174,19 +182,28 @@ export default function MeetNK() {
                     </Text>
                 </View>
 
-                {/* Characters Grid */}
+                {/* Characters Grid using FlatList */}
                 <View style={{
-                    flexDirection: 'row',
-                    flexWrap: 'wrap',
-                    justifyContent: 'center',
-                    paddingHorizontal: 8,
-                    backgroundColor:"#EEEDED",
-                    paddingVertical:16,
-                    borderTopRightRadius:22,
-                    borderTopLeftRadius:22
-                   
+                    backgroundColor: "#EEEDED",
+                    paddingVertical: 16,
+                    borderTopRightRadius: 22,
+                    borderTopLeftRadius: 22,
+                    minHeight: 500 // Ensure enough height for FlatList
                 }}>
-                    {characters.map((character, index) => renderCharacterCard(character, index))}
+                    <FlatList
+                        data={characters}
+                        numColumns={2}
+                        keyExtractor={(item) => item.id}
+                        columnWrapperStyle={{
+                            justifyContent: 'center',
+                            paddingHorizontal: 8
+                        }}
+                        contentContainerStyle={{
+                            paddingBottom: 20
+                        }}
+                        renderItem={renderCharacterCard}
+                        scrollEnabled={false} // Disable FlatList scrolling since it's inside ScrollView
+                    />
                 </View>
             </ScrollView>
         </SafeAreaView>

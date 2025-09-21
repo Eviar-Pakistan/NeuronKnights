@@ -7,10 +7,10 @@ import { Dimensions } from 'react-native';
 
 
 
-import { useRouter } from "expo-router";
+import { useRouter, Link } from "expo-router";
 
 
-import itemimage1 from "../assets/images/Mask group-1.png";
+import itemimage1 from "../assets/images/product.png";
 
 
 export default function Collection() {
@@ -51,6 +51,20 @@ export default function Collection() {
             info: true,
             image: itemimage1,
         },
+        {
+            id: "3",
+            title: "Whimsical Water Bottle, 32oz | Cute Character Drink Container",
+            description:
+                "Stay hydrated in style with this stunning 32oz Water Bottle. Crafted from high-quality stainless",
+            price: "$32.30",
+            oldPrice: "$37.14",
+            rating: 4.8,
+            stars: 4,
+            isSale: true,
+            isFavorite: false,
+            info: true,
+            image: itemimage1,
+        },
         // Add more items as needed
     ]
 
@@ -58,13 +72,13 @@ export default function Collection() {
     // Get the screen width
     const screenWidth = Dimensions.get('window').width;
 
-    const router=useRouter()
+    const router = useRouter()
     return (
         <SafeAreaView className="flex-1 bg-white">
 
             {/* Header */}
             <View className="flex-row items-center z-10 justify-between px-4 py-2 bg-[#4a89dc] rounded-b-xl">
-                <TouchableOpacity  onPress={() => router.back()}>
+                <TouchableOpacity onPress={() => router.push('/welcometonk')}>
                     <Ionicons name="chevron-back-circle" size={28} color="orange" />
                 </TouchableOpacity>
                 <Text className="text-white text-center text-2xl font-bold">OUR LATEST COLLECTION
@@ -252,19 +266,21 @@ export default function Collection() {
                                         marginTop: 3,
                                     }}
                                 >
-                                    <TouchableOpacity
+                                    <Link href={"/productdetails"} asChild>
+                                        <TouchableOpacity
 
-                                        style={{
-                                            flex: 1,
-                                            backgroundColor: "#4a89dc",
-                                            borderRadius: 40,
-                                            alignItems: "center",
-                                            justifyContent: "center",
-                                            paddingVertical: 7,
-                                        }}
-                                    >
-                                        <Text style={{ color: "white", fontWeight: "bold" }}>Buy</Text>
-                                    </TouchableOpacity>
+                                            style={{
+                                                flex: 1,
+                                                backgroundColor: "#4a89dc",
+                                                borderRadius: 40,
+                                                alignItems: "center",
+                                                justifyContent: "center",
+                                                paddingVertical: 7,
+                                            }}
+                                        >
+                                            <Text style={{ color: "white", fontWeight: "bold" }}>Buy</Text>
+                                        </TouchableOpacity>
+                                    </Link>
                                     <TouchableOpacity
                                         style={{
                                             backgroundColor: "#fdc12b",
@@ -286,7 +302,7 @@ export default function Collection() {
                                             justifyContent: "center",
                                         }}
                                     >
-                                        <Text style={{ color: "white", fontSize: 10, fontWeight: "bold",textAlign:"center" }}>1</Text>
+                                        <Text style={{ color: "white", fontSize: 10, fontWeight: "bold", textAlign: "center" }}>1</Text>
                                     </View>
 
                                     <TouchableOpacity

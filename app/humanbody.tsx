@@ -4,8 +4,8 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { useRouter } from "expo-router";
-import { Dimensions, Image, ImageBackground, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { useRouter, Link } from "expo-router";
+import { Dimensions, Image, ImageBackground, ScrollView, Text, TouchableOpacity, View, FlatList } from 'react-native';
 
 
 
@@ -14,7 +14,7 @@ export default function HumanBody() {
     const router = useRouter()
 
     const carouselImages = [
-        "../assets/images/thumbnail 2.png",
+        "../assets/images/humanbodythumbnail.png",
         "../assets/images/thumbnail 2.png",
         "../assets/images/thumbnail 2.png",
         "../assets/images/thumbnail 2.png",
@@ -83,7 +83,7 @@ export default function HumanBody() {
         <SafeAreaView className="flex-1 bg-white">
             {/* Header */}
             <View className="flex-row items-center z-10 justify-between px-4 py-2 bg-[#4A89DC] rounded-b-xl">
-                <TouchableOpacity onPress={() => router.back()} >
+                <TouchableOpacity onPress={() => router.push('/welcometonk')} >
                     <Ionicons name="chevron-back-circle" size={28} color="orange" />
                 </TouchableOpacity>
                 <Text className="text-white text-center text-2xl font-bold">Explore the Human Body
@@ -116,7 +116,7 @@ export default function HumanBody() {
                         {carouselImages.map((uri, index) => (
                             <View key={index} style={{ width: screenWidth }}>
                                 <Image
-                                    source={require("../assets/images/vcthumbnail1.png")}
+                                    source={require("../assets/images/humanbodythumbnail.png")}
                                     resizeMode="cover"
                                     style={{ width: screenWidth, height: 220 }}
                                 />
@@ -166,23 +166,27 @@ export default function HumanBody() {
                     </Text>
 
                     {/* Body Systems Grid */}
-                    <View style={{
-                        flexDirection: 'row',
-                        flexWrap: 'wrap',
-                        justifyContent: 'space-between'
-                    }}>
-                        {bodySystems.map((system) => (
+                    <FlatList
+                        data={bodySystems}
+                        numColumns={2}
+                        keyExtractor={(item) => item.id.toString()}
+                        columnWrapperStyle={{
+                            justifyContent: 'space-between',
+                            paddingHorizontal: 2 // Add horizontal padding to the wrapper
+                        }}
+                        contentContainerStyle={{
+                            paddingVertical: 5
+                        }}
+                        renderItem={({ item: system }) => (
                             <View
-                                key={system.id}
                                 style={{
-                                    width: '47%',
+                                    width: '48%',
+
                                     backgroundColor: "white",
                                     borderRadius: 15,
-
-                                    padding: 15,
+                                    padding: 5,
                                     marginBottom: 10,
                                     alignItems: 'center',
-
                                     shadowColor: "#4A89DC59",
                                     shadowOffset: {
                                         width: 2,
@@ -198,7 +202,7 @@ export default function HumanBody() {
                                     fontSize: 25,
                                     fontWeight: 'bold',
                                     color: "#4A89DC",
-                                    marginBottom: 15,
+                                    marginBottom: 5,
                                     textAlign: 'center'
                                 }}>
                                     {system.name}
@@ -221,7 +225,6 @@ export default function HumanBody() {
                                     start={{ x: 0, y: 0 }}
                                     end={{ x: 1, y: 0 }}
                                     style={{
-                                       
                                         borderRadius: 10,
                                         paddingHorizontal: 8,
                                         paddingVertical: 6,
@@ -237,32 +240,36 @@ export default function HumanBody() {
                                 </LinearGradient>
 
                                 {/* Learn More Button */}
-                                <TouchableOpacity style={{
-                                    backgroundColor: '#FF6B6B',
-                                    borderRadius: 15,
-                                    paddingHorizontal: 15,
-                                    paddingVertical: 8,
-                                    flexDirection: 'row',
-                                    alignItems: 'center'
-                                }}>
-                                    <Text style={{
-                                        color: 'white',
-                                        fontSize: 12,
-                                        fontWeight: 'bold',
-                                        marginRight: 5
+                                <Link href={"/humanbodyinfo"} asChild>
+                                    <TouchableOpacity style={{
+                                        backgroundColor: '#FF6B6B',
+                                        borderRadius: 15,
+                                        paddingHorizontal: 15,
+                                        paddingVertical: 8,
+                                        flexDirection: 'row',
+                                        alignItems: 'center'
                                     }}>
-                                        Learn more
-                                    </Text>
+                                        <Text style={{
+                                            color: 'white',
+                                            fontSize: 12,
+                                            fontWeight: 'bold',
+                                            marginRight: 5
+                                        }}>
+                                            Learn more
+                                        </Text>
 
-                                    <Image
-                                        style={{
-                                            width: 12, height: 12
-                                        }}
-                                        source={require("../assets/icons/select.png")} />
-                                </TouchableOpacity>
+                                        <Image
+                                            style={{
+                                                width: 12,
+                                                height: 12
+                                            }}
+                                            source={require("../assets/icons/select.png")}
+                                        />
+                                    </TouchableOpacity>
+                                </Link>
                             </View>
-                        ))}
-                    </View>
+                        )}
+                    />
                 </View>
 
             </ScrollView>
