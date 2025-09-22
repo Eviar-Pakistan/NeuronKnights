@@ -81,7 +81,7 @@ export default function Intro1() {
                             }}
                         />
                     </View>
-
+ 
                     {/* Fourth Image */}
                     <View style={{ width: screenWidth }}>
                         <Image

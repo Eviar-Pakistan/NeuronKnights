@@ -1,9 +1,9 @@
 import { Ionicons } from "@expo/vector-icons";
+import { LinearGradient } from 'expo-linear-gradient'; // You'll need this for gradients
 import { useRouter } from "expo-router";
 import { useRef, useState } from "react";
 import { Dimensions, FlatList, Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { LinearGradient } from 'expo-linear-gradient'; // You'll need this for gradients
 
 import itemimage1 from "../assets/images/Mask group-1.png";
 import itemimage2 from "../assets/images/Mask group-2.png";
@@ -31,7 +31,7 @@ export default function WelcomeToNK() {
         },
         {
             id: "2",
-            title: "Immune Guardians",
+            title: "Immune  \n Guardians",
             titlecolor: "#37ACB0",
             image: itemimage2,
             gradientColors: ['#5eead4', '#14b8a6'], // teal-200 to teal-500
@@ -63,11 +63,11 @@ export default function WelcomeToNK() {
             image: itemimage5,
             gradientColors: ['#3b82f6', '#c026d3'], // blue-500 to fuchsia-600
             buttontext: "let's Do it",
-            link: "/humanbody"
+            link: "/challenge"
         },
         {
             id: "6",
-            title: "Knight Code Quest",
+            title: "Knight  \n Code Quest",
             titlecolor: "#4A89DC",
             image: itemimage,
             gradientColors: ['#ec4899', '#fbbf24'], // pink-600 to amber-400
@@ -127,7 +127,7 @@ export default function WelcomeToNK() {
                 zIndex: 0,
                 width: '100%'
             }} contentContainerStyle={{ paddingBottom: 100 }}>
-                
+
                 {/* Horizontal Carousel */}
                 <View style={{
                     backgroundColor: '#4a89dc',
@@ -235,14 +235,16 @@ export default function WelcomeToNK() {
                                 >
                                     {item.title}
                                 </Text>
-                                
+
                                 {/* Fixed Button with LinearGradient */}
-                                <TouchableOpacity 
+                                <TouchableOpacity
                                     onPress={() => router.push(item.link)}
                                     style={{ width: "100%" }}
                                 >
                                     <LinearGradient
                                         colors={item.gradientColors}
+                                        start={{ x: 0, y: 0 }}  // Left
+                                        end={{ x: 1, y: 0 }}    // Right
                                         style={{
                                             flexDirection: "row",
                                             justifyContent: "center",
@@ -253,9 +255,9 @@ export default function WelcomeToNK() {
                                         }}
                                     >
                                         <Ionicons name="game-controller" size={16} color="white" />
-                                        <Text style={{ 
-                                            marginLeft: 8, 
-                                            color: "white", 
+                                        <Text style={{
+                                            marginLeft: 8,
+                                            color: "white",
                                             fontWeight: "500",
                                             fontSize: 14
                                         }}>
@@ -299,8 +301,8 @@ export default function WelcomeToNK() {
 
                 {/* Floating Icon */}
                 <View style={{ position: 'relative' }}>
-                    <TouchableOpacity 
-                        onPress={() => router.push("/playgames")} 
+                    <TouchableOpacity
+                        onPress={() => router.push("/playgames")}
                         style={{
                             width: 64,
                             height: 64,

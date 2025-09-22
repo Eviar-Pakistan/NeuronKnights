@@ -19,8 +19,8 @@ export default function Choice() {
                 </TouchableOpacity>
             </Link>
 
-            <Text className="my-2">
-                OR
+            <Text className="my-2 font-semibold  text-gray-400 text-xl">
+                or
             </Text>
 
             <Link href="/intro1parents" asChild>

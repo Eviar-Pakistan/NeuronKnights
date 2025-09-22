@@ -42,7 +42,7 @@ export default function Logout() {
                             
                                 <TouchableOpacity onPress={()=>router.push("/welcometonk")} className="flex-row items-center justify-center bg-white rounded-lg py-3 px-4 w-full">
                                     <Ionicons name="log-out" size={40} color="red" />
-                                    <Text className="ml-2 text-white font-bold text-xl text-red-500">
+                                    <Text className="ml-2 font-bold text-xl text-red-500">
                                         Logout
                                     </Text>
                                 </TouchableOpacity>

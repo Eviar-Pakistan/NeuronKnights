@@ -31,6 +31,10 @@ export default function RootLayout() {
         <Stack.Screen name="playgames" options={{ animation: "slide_from_bottom" }} />
         <Stack.Screen name="credentails" options={{ animation: "slide_from_left" }} />
         <Stack.Screen name="collection" options={{ animation: "slide_from_bottom" }} />
+        <Stack.Screen name="aitools" options={{ animation: "slide_from_right" }} />
+        <Stack.Screen name="assessment" options={{ animation: "slide_from_left" }} />
+        <Stack.Screen name="learingpath" options={{ animation: "slide_from_bottom" }} />
+        <Stack.Screen name="challenge" options={{ animation: "slide_from_bottom" }} />
 
       </Stack>
     </SafeAreaView>
